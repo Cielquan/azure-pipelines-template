@@ -6,5 +6,5 @@ WIP - Trying to figure azure pipelines out.
 
 Inspired by:
 
-https://github.com/tox-dev/azure-pipelines-template
-https://github.com/asottile/azure-pipeline-templates
+- https://github.com/tox-dev/azure-pipelines-template
+- https://github.com/asottile/azure-pipeline-templates
