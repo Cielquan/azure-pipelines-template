@@ -1,0 +1,45 @@
+minimum_pre_commit_version: "1.15"
+default_stages: [commit, push]
+
+repos:
+#: -----------------------------------------------------------------------------
+#: Meta hooks
+#: -----------------------------------------------------------------------------
+  #: Meta hooks provided by pre-commit
+  - repo: meta
+    hooks:
+      - id: identity
+        stages: [manual]
+      - id: check-hooks-apply
+        stages: [manual]
+      - id: check-useless-excludes
+        stages: [manual]
+
+
+#: -----------------------------------------------------------------------------
+#: Commit hooks
+#: -----------------------------------------------------------------------------
+  #: code unspecific out-of-the-box hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: e1668fe86af3810fbca72b8653fe478e66a0afdc  # frozen: v3.2.0
+    hooks:
+      - id: no-commit-to-branch
+        args: [
+          --branch, staging,
+          --branch, master,
+          --pattern, release/.*,
+        ]
+      - id: check-case-conflict
+      - id: check-yaml
+      - id: detect-private-key
+      - id: trailing-whitespace
+        stages: [commit, push]
+      - id: end-of-file-fixer
+        stages: [commit, push]
+
+
+  #: rstcheck
+  - repo: https://github.com/myint/rstcheck
+    rev: 3f92957478422df87bd730abde66f089cc1ee19b  # bleeding edge
+    hooks:
+      - id: rstcheck
