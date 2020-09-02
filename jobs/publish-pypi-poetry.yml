@@ -1,0 +1,20 @@
+parameters:
+  python_version: '3.8'
+  dependsOn: []
+
+jobs:
+  - job: publish
+    dependsOn: ${{ parameters.dependsOn }}
+    condition: succeeded()
+    pool: {vmImage: 'ubuntu-latest'}
+    variables:
+      TMPDIR: $(Build.BinariesDirectory)
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+    steps:
+      - task: UsePythonVersion@0
+        displayName: setup python
+        inputs:
+          versionSpec: ${{ parameters.python_version }}
+      - script: 'python -m pip install -U --user --force-reinstall poetry'
+      - script: poetry build
+      - script: poetry publish
