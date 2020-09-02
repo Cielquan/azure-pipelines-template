@@ -55,8 +55,7 @@ The job templates can be found in the ``jobs`` directory.
 -------------
 
 
-Logic
-~~~~~
+**Logic**
 
 This job template will run ``tox`` for a given set of tox environments on given
 os.
@@ -76,8 +75,7 @@ Features and functionality:
 - if coverage was requested queue a job that post all toxenv runs will merge all the coverages via a tox target
 
 
-Steps
-~~~~~
+**Steps**
 
 This template will:
 
@@ -101,8 +99,7 @@ After the steps above the template will also add a job to merge the uploaded
 coverage artifacts and publish them with ``Cobertura``.
 
 
-Parameters
-~~~~~~~~~~
+**Parameters**
 
 The following parameters can be set at root level:
 
@@ -166,8 +163,7 @@ The following parameters can be set at root level:
     ``tox_env`` must generate ``.tox/.coverage`` and ``.tox/coverage.xml`` files
 
 
-Example
-~~~~~~~
+**Example**
 
 The following example will run the follwing jobs with ``tox`` version *3.15.0*
 called via *python 3.7*:
@@ -216,15 +212,13 @@ use *python 3.7* to call ``tox`` in version* 3.15.0* for
 **WIP - THIS TEMPLATE IS NOT FINISHED/TESTED YET**
 
 
-Logic
-~~~~~
+**Logic**
 
 This job template will use `poetry <https://python-poetry.org/>`_ to build
 and publish the Python package (both sdist and wheel).
 
 
-Parameters
-~~~~~~~~~~
+**Parameters**
 
 The following parameters can be set at root level:
 
@@ -232,8 +226,7 @@ The following parameters can be set at root level:
 - ``dependsOn``: List of jobs this job should depend on.
 
 
-Example
-~~~~~~~
+**Example**
 
 This example builds and publishes the package to PyPI.org after the jobs
 ``report_coverage``, ``pre_commit`` and ``docs`` ran successfully.
