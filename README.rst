@@ -210,6 +210,42 @@ use *python 3.7* to call ``tox`` in version* 3.15.0* for
             for_envs: [py38, py39, pypy3]
 
 
+`publish-pypi-poetry.yml`
+-------------------------
+
+**WIP - THIS TEMPLATE IS NOT FINISHED/TESTED YET**
+
+
+Logic
+~~~~~
+
+This job template will use `poetry <https://python-poetry.org/>`_ to build
+and publish the Python package (both sdist and wheel).
+
+
+Parameters
+~~~~~~~~~~
+
+The following parameters can be set at root level:
+
+- ``python_version``: Python version to use (default: 3.8).
+- ``dependsOn``: List of jobs this job should depend on.
+
+
+Example
+~~~~~~~
+
+This example builds and publishes the package to PyPI.org after the jobs
+``report_coverage``, ``pre_commit`` and ``docs`` ran successfully.
+
+.. code-block:: yaml
+
+    - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
+      - template: jobs/publish-pypi-poetry.yml@cielquan
+        parameters:
+          dependsOn: [report_coverage, pre_commit, docs]
+
+
 Mentions
 ========
 
