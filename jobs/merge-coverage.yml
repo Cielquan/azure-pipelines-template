@@ -1,0 +1,72 @@
+parameters:
+  dependsOn: []
+  toxenv: 'coverage'
+  tox_version: ''
+  tox_python: '3.8'
+
+jobs:
+  - job: report_coverage
+    pool: {vmImage: "ubuntu-latest"}
+    condition: always()
+    dependsOn: ${{ parameters.dependsOn }}
+    variables:
+      TMPDIR: $(Build.BinariesDirectory)
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      TOXENV: ${{ parameters.toxenv }}
+    steps:
+      - task: DownloadBuildArtifacts@0
+        displayName: download coverage files for run
+        inputs:
+          buildType: current
+          downloadType: specific
+          itemPattern: coverage-*/*
+          downloadPath: $(Build.StagingDirectory)
+
+      - task: UsePythonVersion@0
+        displayName: setup python
+        inputs:
+          versionSpec: ${{ parameters.tox_python }}
+
+      - script: |
+          python -c '
+          from pathlib import Path
+          import shutil
+
+          from_folder = Path("$(Build.StagingDirectory)")
+          destination_folder = Path("$(System.DefaultWorkingDirectory)") / ".tox"
+          destination_folder.mkdir()
+          for coverage_file in from_folder.glob("*/.coverage"):
+              destination = destination_folder / f".coverage.{coverage_file.parent.name[9:]}"
+              print(f"{coverage_file} copy to {destination}")
+              shutil.copy(str(coverage_file), str(destination))'
+        displayName: move coverage files into .tox
+
+      #: upgrade tox python pip, setuptools, virtualenv, wheel
+      - script: python -m pip install -U --user pip
+        displayName: "tox: upgrade pip"
+      - script: python -m pip install -U --user setuptools virtualenv wheel
+        displayName: "tox: upgrade setuptools, virtualenv, wheel"
+
+      #: install tox for tox python
+      - ${{ if parameters.tox_version }}:
+        - script: ${{ format('python -m pip install -U --user --force-reinstall tox=={0}', parameters.tox_version) }}
+          displayName: "${{ format('tox: install version {0} from PyPi', parameters.tox_version) }}"
+      - ${{ if not(parameters.tox_version) }}:
+        - script: python -m pip install -U --user --force-reinstall tox
+          displayName: "tox: install newest version from PyPI"
+
+      - script: 'python -m tox -e py -vv --sdistonly'
+        displayName: run package build to ensure generated files present
+
+      - script: 'python -m tox --notest -vv --skip-missing-interpreters false'
+        displayName: generate coverage tox test environment
+
+      - script: 'python -m tox'
+        displayName: create coverage report via tox
+
+      - task: PublishCodeCoverageResults@1
+        displayName: publish overall coverage report to Azure
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: "$(System.DefaultWorkingDirectory)/.tox/coverage.xml"
+          failIfCoverageEmpty: true
