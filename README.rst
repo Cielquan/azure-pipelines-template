@@ -237,7 +237,7 @@ but I cannot promise a quick response time.
 
 .. |license| image:: https://img.shields.io/github/license/Cielquan/azure-pipelines-template.svg?style=flat-square&label=License
     :alt: License
-    :target: https://github.com/Cielquan/azure-pipelines-template/blob/master/LICENSE.rst
+    :target: https://github.com/Cielquan/azure-pipelines-template/blob/master/LICENSE.txt
 
 .. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
     :alt: Code Style - Black
