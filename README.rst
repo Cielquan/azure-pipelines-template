@@ -219,6 +219,14 @@ Inspired by:
 - https://github.com/asottile/azure-pipeline-templates
 
 
+Disclaimer
+==========
+
+No active maintenance is intended for this project.
+You may leave an issue if you have a questions, bug report or feature request,
+but I cannot promise a quick response time.
+
+
 .. .############################### LINKS ###############################
 
 
