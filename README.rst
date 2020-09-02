@@ -2,6 +2,21 @@
 azure-pipeline-template
 =======================
 
++---------------+----------------------------------------------------------------------+
+| **General**   | |maintenance| |license|                                              |
++---------------+----------------------------------------------------------------------+
+| **Pipeline**  | |azure_pipeline|                                                     |
++---------------+----------------------------------------------------------------------+
+| **Tools**     | |tox|                                                                |
++---------------+----------------------------------------------------------------------+
+| **VC**        | |vcs| |gpg| |semver| |pre-commit|                                    |
++---------------+----------------------------------------------------------------------+
+| **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
+|               +----------------------------------------------------------------------+
+|               | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                |
++---------------+----------------------------------------------------------------------+
+
+
 **First configure a github service connection**
 
 It is suggested to use a generic name, such as `github` so forks can also
@@ -202,3 +217,88 @@ Inspired by:
 
 - https://github.com/tox-dev/azure-pipelines-template
 - https://github.com/asottile/azure-pipeline-templates
+
+
+.. .############################### LINKS ###############################
+
+
+.. General
+.. |maintenance| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-red.svg?style=flat-square
+    :target: http://unmaintained.tech/
+    :alt: Maintenance - not intended
+
+.. |license| image:: https://img.shields.io/github/license/Cielquan/azure-pipelines-template.svg?style=flat-square&label=License
+    :alt: License
+    :target: https://github.com/Cielquan/azure-pipelines-template/blob/master/LICENSE.rst
+
+.. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
+    :alt: Code Style - Black
+    :target: https://github.com/psf/black
+
+
+.. Pipeline
+.. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/cielquan/a333a3f3-daef-4f27-a8af-c82feeb2df36/4?style=flat-square&logo=azure-pipelines&label=Azure%20Pipelines
+    :target: https://dev.azure.com/cielquan/azure-pipelines-template/_build/latest?definitionId=4&branchName=master
+    :alt: Azure DevOps builds
+
+
+.. Tools
+.. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
+    :target: https://python-poetry.org/
+    :alt: Poetry
+
+.. |tox| image:: https://img.shields.io/badge/Automation-tox-brightgreen.svg?style=flat-square
+    :target: https://tox.readthedocs.io/en/latest/
+    :alt: tox
+
+.. |pytest| image:: https://img.shields.io/badge/Test%20framework-pytest-brightgreen.svg?style=flat-square
+    :target: https://docs.pytest.org/en/latest/
+    :alt: Pytest
+
+
+.. VC
+.. |vcs| image:: https://img.shields.io/badge/VCS-git-orange.svg?style=flat-square&logo=git
+    :target: https://git-scm.com/
+    :alt: VCS
+
+.. |gpg| image:: https://img.shields.io/badge/GPG-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
+    :target: https://gnupg.org/
+    :alt: Website
+
+.. |semver| image:: https://img.shields.io/badge/Versioning-semantic-brightgreen.svg?style=flat-square
+    :alt: Versioning - semantic
+    :target: https://semver.org/
+
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
+    :target: https://github.com/pre-commit/pre-commit
+    :alt: pre-commit
+
+
+.. Github
+.. |gh_release| image:: https://img.shields.io/github/v/release/Cielquan/azure-pipelines-template.svg?style=flat-square&logo=github
+    :alt: Github - Latest Release
+    :target: https://github.com/Cielquan/azure-pipelines-template/releases/latest
+
+.. |gh_commits_since| image:: https://img.shields.io/github/commits-since/Cielquan/azure-pipelines-template/latest.svg?style=flat-square&logo=github
+    :alt: Github - Commits since latest release
+    :target: https://github.com/Cielquan/azure-pipelines-template/commits/master
+
+.. |gh_last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/azure-pipelines-template.svg?style=flat-square&logo=github
+    :alt: Github - Last Commit
+    :target: https://github.com/Cielquan/azure-pipelines-template/commits/master
+
+.. |gh_stars| image:: https://img.shields.io/github/stars/Cielquan/azure-pipelines-template.svg?style=flat-square&logo=github
+    :alt: Github - Stars
+    :target: https://github.com/Cielquan/azure-pipelines-template/stargazers
+
+.. |gh_forks| image:: https://img.shields.io/github/forks/Cielquan/azure-pipelines-template.svg?style=flat-square&logo=github
+    :alt: Github - Forks
+    :target: https://github.com/Cielquan/azure-pipelines-template/network/members
+
+.. |gh_contributors| image:: https://img.shields.io/github/contributors/Cielquan/azure-pipelines-template.svg?style=flat-square&logo=github
+    :alt: Github - Contributors
+    :target: https://github.com/Cielquan/azure-pipelines-template/graphs/contributors
+
+.. |gh_watchers| image:: https://img.shields.io/github/watchers/Cielquan/azure-pipelines-template.svg?style=flat-square&logo=github
+    :alt: Github - Watchers
+    :target: https://github.com/Cielquan/azure-pipelines-template/watchers
