@@ -106,14 +106,12 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# pycharm folder
+# IDE folder
 .idea/
+.vscode/
 
 # Versioning
 version.py
-
-# Backup files
-*.bak
 
 # Configs
 *.list
@@ -127,5 +125,12 @@ version.py
 *.key
 *.srl
 
-# Personal stuff
+# Backup files
+*.bak
+
+# Local backup dir
 _backupfiles
+.backupfiles
+
+# Python debugger config
+.pdbrc
