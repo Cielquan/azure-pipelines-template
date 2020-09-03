@@ -13,11 +13,8 @@ jobs:
       PIP_DISABLE_PIP_VERSION_CHECK: '1'
       ${{ if eq(parameters.custom_repository, true) }}:
         custom_repository: true
-#         POETRY_REPOSITORIES_CUSTOM_URL: $(POETRY_REPOSITORIES_CUSTOM_URL)
-#         POETRY_HTTP_BASIC_CUSTOM_USERNAME: $(POETRY_HTTP_BASIC_CUSTOM_USERNAME)
       ${{ if ne(parameters.custom_repository, true) }}:
         custom_repository: false
-#         POETRY_HTTP_BASIC_PYPI_USERNAME: $(POETRY_HTTP_BASIC_PYPI_USERNAME)
     steps:
       - task: UsePythonVersion@0
         displayName: setup python
@@ -33,8 +30,8 @@ jobs:
           echo $POETRY_PYPI_TOKEN_CUSTOM
           echo $POETRY_HTTP_BASIC_CUSTOM_PASSWORD
         env:
-          POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
-          POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $(POETRY_HTTP_BASIC_CUSTOM_PASSWORD)
+          POETRY_PYPI_TOKEN_CUSTOM: $[POETRY_PYPI_TOKEN_CUSTOM]
+          POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $[POETRY_HTTP_BASIC_CUSTOM_PASSWORD]
       - bash: python -m poetry publish
         displayName: Upload to PyPI
         env:
