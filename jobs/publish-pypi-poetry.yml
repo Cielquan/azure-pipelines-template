@@ -31,21 +31,21 @@ jobs:
           echo $POETRY_PYPI_TOKEN_CUSTOM
           echo $POETRY_HTTP_BASIC_CUSTOM_PASSWORD
         env:
-         POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
-         POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $(POETRY_HTTP_BASIC_CUSTOM_PASSWORD)
+          POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
+          POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $(POETRY_HTTP_BASIC_CUSTOM_PASSWORD)
       - bash: |
-        [[ $POETRY_PYPI_TOKEN_PYPI == \$* ]] && unset POETRY_PYPI_TOKEN_PYPI
-        [[ $POETRY_HTTP_BASIC_PYPI_PASSWORD == \$* ]] && unset POETRY_HTTP_BASIC_PYPI_PASSWORD
-        python -m poetry publish
+          [[ $POETRY_PYPI_TOKEN_PYPI == \$* ]] && unset POETRY_PYPI_TOKEN_PYPI
+          [[ $POETRY_HTTP_BASIC_PYPI_PASSWORD == \$* ]] && unset POETRY_HTTP_BASIC_PYPI_PASSWORD
+          python -m poetry publish
         displayName: Upload to PyPI
         env:
           POETRY_PYPI_TOKEN_PYPI: $(POETRY_PYPI_TOKEN_PYPI)
           POETRY_HTTP_BASIC_PYPI_PASSWORD: $(POETRY_HTTP_BASIC_PYPI_PASSWORD)
         condition: ne(variables.custom_repository, true)
       - bash: |
-        [[ $POETRY_PYPI_TOKEN_CUSTOM == \$* ]] && unset POETRY_PYPI_TOKEN_CUSTOM
-        [[ $POETRY_HTTP_BASIC_CUSTOM_PASSWORD == \$* ]] && unset POETRY_HTTP_BASIC_CUSTOM_PASSWORD
-        python -m poetry publish -r custom
+          [[ $POETRY_PYPI_TOKEN_CUSTOM == \$* ]] && unset POETRY_PYPI_TOKEN_CUSTOM
+          [[ $POETRY_HTTP_BASIC_CUSTOM_PASSWORD == \$* ]] && unset POETRY_HTTP_BASIC_CUSTOM_PASSWORD
+          python -m poetry publish -r custom
         displayName: Upload to custom repository
         env:
           POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
