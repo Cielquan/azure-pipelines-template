@@ -17,4 +17,5 @@ jobs:
           versionSpec: ${{ parameters.python_version }}
       - script: 'python -m pip install -U --user --force-reinstall poetry'
       - script: poetry build
-      - script: poetry publish
+      - script: poetry config repositories.test_pypi https://test.pypi.org/
+      - script: poetry publish -r test_pypi
