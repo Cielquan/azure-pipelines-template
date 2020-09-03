@@ -25,15 +25,19 @@ jobs:
       - bash: python -m poetry build
         displayName: Build package
       - bash: |
+          [[ $POETRY_PYPI_TOKEN_CUSTOM != \$* ]] && echo $POETRY_PYPI_TOKEN_CUSTOM
           echo $POETRY_REPOSITORIES_CUSTOM_URL
           echo $POETRY_HTTP_BASIC_CUSTOM_USERNAME
           echo $POETRY_PYPI_TOKEN_CUSTOM
           echo $POETRY_HTTP_BASIC_CUSTOM_PASSWORD
+
+          echo $POETRY_HTTP_BASIC_PYPI_USERNAME
+          echo $POETRY_PYPI_TOKEN_PYPI
+          echo $POETRY_HTTP_BASIC_PYPI_PASSWORD
+
         env:
-          POETRY_PYPI_TOKEN_CUSTOM: ${{ coalesce($(POETRY_PYPI_TOKEN_CUSTOM), '') }}
-          POETRY_HTTP_BASIC_CUSTOM_PASSWORD: ${{ coalesce($(POETRY_HTTP_BASIC_CUSTOM_PASSWORD), '') }}
-#         POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
-#          POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $(POETRY_HTTP_BASIC_CUSTOM_PASSWORD)
+         POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
+         POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $(POETRY_HTTP_BASIC_CUSTOM_PASSWORD)
 
       - bash: python -m poetry publish
         displayName: Upload to PyPI
