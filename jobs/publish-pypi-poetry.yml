@@ -15,7 +15,7 @@ jobs:
         custom_repository: true
       ${{ if not(parameters.custom_repository_url) }}:
         custom_repository: false
-  steps:
+    steps:
       - task: UsePythonVersion@0
         displayName: setup python
         inputs:
