@@ -27,9 +27,9 @@ jobs:
       - script: python -m poetry config repositories.custom ${{ parameters.custom_repository_url }}
         displayName: Set custom repository url
         condition: eq(variables.custom_repository, true)
-      - script: python -m poetry publish -r test_pypi
+      - script: python -m poetry publish -r custom
         displayName: Upload to custom repository
         condition: eq(variables.custom_repository, true)
-      - script: python -m poetry publish -r test_pypi
+      - script: python -m poetry publish
         displayName: Upload to PyPI
         condition: ne(variables.custom_repository, true)
