@@ -20,13 +20,22 @@ jobs:
         displayName: setup python
         inputs:
           versionSpec: ${{ parameters.python_version }}
-      - script: python -m pip install -U --user --force-reinstall poetry
+      - bash: python -m pip install -U --user --force-reinstall poetry
         displayName: Install poetry
-      - script: python -m poetry build
+      - bash: python -m poetry build
         displayName: Build package
-      - script: python -m poetry publish -r ${{ parameters.custom_repository_name }}
-        displayName: Upload to custom repository
-        condition: eq(variables.custom_repository, true)
-      - script: python -m poetry publish
+      - bash: python -m poetry publish
         displayName: Upload to PyPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: $(POETRY_PYPI_TOKEN_PYPI)
+          POETRY_HTTP_BASIC_PYPI_USERNAME: $(POETRY_HTTP_BASIC_PYPI_USERNAME)
+          POETRY_HTTP_BASIC_PYPI_PASSWORD: $(POETRY_HTTP_BASIC_PYPI_PASSWORD)
         condition: ne(variables.custom_repository, true)
+      - bash: python -m poetry publish -r ${{ parameters.custom_repository_name }}
+        displayName: Upload to custom repository
+        env:
+          ${{ format('POETRY_PYPI_TOKEN_{0}', parameters.custom_repository_name) }}: $(${{ format('POETRY_PYPI_TOKEN_{0}', parameters.custom_repository_name) }}:)
+          ${{ format('POETRY_HTTP_BASIC_{0}_USERNAME', parameters.custom_repository_name) }}: $(${{ format('POETRY_HTTP_BASIC_{0}_USERNAME', parameters.custom_repository_name) }})
+          ${{ format('POETRY_HTTP_BASIC_{0}_PASSWORD', parameters.custom_repository_name) }}: $(${{ format('POETRY_HTTP_BASIC_{0}_PASSWORD', parameters.custom_repository_name) }})
+        condition: eq(variables.custom_repository, true)
+
