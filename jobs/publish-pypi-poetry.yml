@@ -1,7 +1,7 @@
 parameters:
   python_version: '3.8'
   dependsOn: []
-  custom_repository_url: ''
+  custom_repository_name: ''
 
 jobs:
   - job: publish
@@ -11,9 +11,9 @@ jobs:
     variables:
       TMPDIR: $(Build.BinariesDirectory)
       PIP_DISABLE_PIP_VERSION_CHECK: '1'
-      ${{ if parameters.custom_repository_url }}:
+      ${{ if parameters.custom_repository_name }}:
         custom_repository: true
-      ${{ if not(parameters.custom_repository_url) }}:
+      ${{ if not(parameters.custom_repository_name) }}:
         custom_repository: false
     steps:
       - task: UsePythonVersion@0
@@ -24,10 +24,7 @@ jobs:
         displayName: Install poetry
       - script: python -m poetry build
         displayName: Build package
-      - script: python -m poetry config repositories.custom ${{ parameters.custom_repository_url }}
-        displayName: Set custom repository url
-        condition: eq(variables.custom_repository, true)
-      - script: python -m poetry publish -r custom
+      - script: python -m poetry publish -r ${{ parameters.custom_repository_name }}
         displayName: Upload to custom repository
         condition: eq(variables.custom_repository, true)
       - script: python -m poetry publish
