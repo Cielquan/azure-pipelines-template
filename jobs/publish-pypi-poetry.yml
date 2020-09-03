@@ -27,6 +27,14 @@ jobs:
         displayName: Install poetry
       - bash: python -m poetry build
         displayName: Build package
+      - bash: |
+          echo $POETRY_REPOSITORIES_CUSTOM_URL
+          echo $POETRY_HTTP_BASIC_CUSTOM_USERNAME
+          echo $POETRY_PYPI_TOKEN_CUSTOM
+          echo $POETRY_HTTP_BASIC_CUSTOM_PASSWORD
+        env:
+          POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
+          POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $(POETRY_HTTP_BASIC_CUSTOM_PASSWORD)
       - bash: python -m poetry publish
         displayName: Upload to PyPI
         env:
