@@ -1,6 +1,7 @@
 parameters:
   python_version: '3.8'
   dependsOn: []
+  custom_repository_url: ''
 
 jobs:
   - job: publish
@@ -15,8 +16,16 @@ jobs:
         displayName: setup python
         inputs:
           versionSpec: ${{ parameters.python_version }}
-#       - script: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
       - script: python -m pip install -U --user --force-reinstall poetry
-      - script: python -m poetry config repositories.test_pypi https://test.pypi.org/
+        displayName: Install poetry
       - script: python -m poetry build
+        displayName: Build package
+      - script: python -m poetry config repositories.custom $(parameters.custom_repository_url)
+        displayName: Set custom repository url
+        condition: parameters.custom_repository_url
       - script: python -m poetry publish -r test_pypi
+        displayName: Upload to custom repository
+        condition: parameters.custom_repository_url
+      - script: python -m poetry publish -r test_pypi
+        displayName: Upload to PyPI
+        condition: not(parameters.custom_repository_url)
