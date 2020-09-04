@@ -259,7 +259,7 @@ or
 - ``POETRY_HTTP_BASIC_CUSTOM_PASSWORD`` as a **secret variable**
 
 
-**NOTE**
+**NOTE:**
 Currently there are issues with the token variables not being recognized by
 poetry as is should. As a workaround for `PyPI <https://pypi.org/>`_ and
 `TestPyPI <https://test.pypi.org/>`_ you can set the username to ``__token__``
