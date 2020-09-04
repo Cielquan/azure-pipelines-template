@@ -54,7 +54,7 @@ The job templates can be found in the ``jobs`` directory.
 `run-tox.yml`
 -------------
 
-Added in version 0.1.0.
+*Added in version 0.1.0.*
 
 **Logic**
 
@@ -210,7 +210,7 @@ use *python 3.7* to call ``tox`` in version* 3.15.0* for
 `publish-pypi-poetry.yml`
 -------------------------
 
-Added in version 0.2.0.
+*Added in version 0.2.0.*
 
 **Logic**
 
