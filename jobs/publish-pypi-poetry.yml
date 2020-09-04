@@ -1,0 +1,44 @@
+parameters:
+  python_version: '3.8'
+  dependsOn: []
+  custom_repository: false
+
+jobs:
+  - job: publish
+    dependsOn: ${{ parameters.dependsOn }}
+    condition: succeeded()
+    pool: {vmImage: 'ubuntu-latest'}
+    variables:
+      TMPDIR: $(Build.BinariesDirectory)
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      ${{ if eq(parameters.custom_repository, true) }}:
+        custom_repository: true
+      ${{ if ne(parameters.custom_repository, true) }}:
+        custom_repository: false
+    steps:
+      - task: UsePythonVersion@0
+        displayName: setup python
+        inputs:
+          versionSpec: ${{ parameters.python_version }}
+      - bash: python -m pip install -U --user --force-reinstall poetry
+        displayName: Install poetry
+      - bash: python -m poetry build
+        displayName: Build package
+      - bash: |
+          [[ $POETRY_PYPI_TOKEN_PYPI == \$* ]] && unset POETRY_PYPI_TOKEN_PYPI
+          [[ $POETRY_HTTP_BASIC_PYPI_PASSWORD == \$* ]] && unset POETRY_HTTP_BASIC_PYPI_PASSWORD
+          python -m poetry publish
+        displayName: Upload to PyPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: $(POETRY_PYPI_TOKEN_PYPI)
+          POETRY_HTTP_BASIC_PYPI_PASSWORD: $(POETRY_HTTP_BASIC_PYPI_PASSWORD)
+        condition: ne(variables.custom_repository, true)
+      - bash: |
+          [[ $POETRY_PYPI_TOKEN_CUSTOM == \$* ]] && unset POETRY_PYPI_TOKEN_CUSTOM
+          [[ $POETRY_HTTP_BASIC_CUSTOM_PASSWORD == \$* ]] && unset POETRY_HTTP_BASIC_CUSTOM_PASSWORD
+          python -m poetry publish -r custom
+        displayName: Upload to custom repository
+        env:
+          POETRY_PYPI_TOKEN_CUSTOM: $(POETRY_PYPI_TOKEN_CUSTOM)
+          POETRY_HTTP_BASIC_CUSTOM_PASSWORD: $(POETRY_HTTP_BASIC_CUSTOM_PASSWORD)
+        condition: eq(variables.custom_repository, true)
