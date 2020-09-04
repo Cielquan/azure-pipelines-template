@@ -209,13 +209,11 @@ use *python 3.7* to call ``tox`` in version* 3.15.0* for
 `publish-pypi-poetry.yml`
 -------------------------
 
-**WIP - THIS TEMPLATE IS NOT FINISHED/TESTED YET**
-
-
 **Logic**
 
 This job template will use `poetry <https://python-poetry.org/>`_ to build
-and publish the Python package (both sdist and wheel).
+and publish the Python package (both sdist and wheel) to PyPI or a custom
+repository.
 
 
 **Parameters**
@@ -224,6 +222,45 @@ The following parameters can be set at root level:
 
 - ``python_version``: Python version to use (default: 3.8).
 - ``dependsOn``: List of jobs this job should depend on.
+- ``custom_repository``: Boolean for using a custom repository over PyPI
+  (default: false)
+
+
+**Pipeline variables**
+
+For this job to work credentials for the target repository are needed. They
+are served via Pipline Variables, which you have to set in the pipelines
+Web-UI settings
+(`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
+
+If you want to publish to PyPI (*which is the default*) you have to set either:
+
+- ``POETRY_PYPI_TOKEN_PYPI`` as a **secret variable**
+
+or 
+
+- ``POETRY_HTTP_BASIC_PYPI_USERNAME`` as a **non-secret variable** and
+- ``POETRY_HTTP_BASIC_PYPI_PASSWORD`` as a **secret variable**
+
+If you want to publish to a custom repository you have to set:
+
+- ``POETRY_REPOSITORIES_CUSTOM_URL`` as a **non-secret variable**
+
+and for the credentials you have to set (similar to PyPI) either:
+
+- ``POETRY_PYPI_TOKEN_CUSTOM`` as a **secret variable**
+
+or 
+
+- ``POETRY_HTTP_BASIC_CUSTOM_USERNAME`` as a **non-secret variable** and
+- ``POETRY_HTTP_BASIC_CUSTOM_PASSWORD`` as a **secret variable**
+
+
+**NOTE**
+Currently there are issues with the token variables not being recognized by
+poetry as is should. As a workaround for `PyPI <https://pypi.org/>`_ and
+`TestPyPI <https://test.pypi.org/>`_ you can set the username to ``__token__``
+and the password to the token including the ``pypi-`` at the beginning.
 
 
 **Example**
@@ -260,6 +297,7 @@ but I cannot promise a quick response time.
 
 
 .. General
+
 .. |maintenance| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-red.svg?style=flat-square
     :target: http://unmaintained.tech/
     :alt: Maintenance - not intended
@@ -274,12 +312,14 @@ but I cannot promise a quick response time.
 
 
 .. Pipeline
+
 .. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/cielquan/a333a3f3-daef-4f27-a8af-c82feeb2df36/4?style=flat-square&logo=azure-pipelines&label=Azure%20Pipelines
     :target: https://dev.azure.com/cielquan/azure-pipelines-template/_build/latest?definitionId=4&branchName=master
     :alt: Azure DevOps builds
 
 
 .. Tools
+
 .. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
     :target: https://python-poetry.org/
     :alt: Poetry
@@ -294,6 +334,7 @@ but I cannot promise a quick response time.
 
 
 .. VC
+
 .. |vcs| image:: https://img.shields.io/badge/VCS-git-orange.svg?style=flat-square&logo=git
     :target: https://git-scm.com/
     :alt: VCS
@@ -312,6 +353,7 @@ but I cannot promise a quick response time.
 
 
 .. Github
+
 .. |gh_release| image:: https://img.shields.io/github/v/release/Cielquan/azure-pipelines-template.svg?style=flat-square&logo=github
     :alt: Github - Latest Release
     :target: https://github.com/Cielquan/azure-pipelines-template/releases/latest
