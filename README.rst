@@ -240,7 +240,7 @@ If you want to publish to PyPI (*which is the default*) you have to set either:
 
 - ``POETRY_PYPI_TOKEN_PYPI`` as a **secret variable**
 
-or 
+or
 
 - ``POETRY_HTTP_BASIC_PYPI_USERNAME`` as a **non-secret variable** and
 - ``POETRY_HTTP_BASIC_PYPI_PASSWORD`` as a **secret variable**
@@ -253,7 +253,7 @@ and for the credentials you have to set (similar to PyPI) either:
 
 - ``POETRY_PYPI_TOKEN_CUSTOM`` as a **secret variable**
 
-or 
+or
 
 - ``POETRY_HTTP_BASIC_CUSTOM_USERNAME`` as a **non-secret variable** and
 - ``POETRY_HTTP_BASIC_CUSTOM_PASSWORD`` as a **secret variable**
