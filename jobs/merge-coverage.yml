@@ -3,6 +3,7 @@ parameters:
   toxenv: 'coverage'
   tox_version: ''
   tox_python: '3.8'
+  send_cov_to_codeclimate: false
 
 jobs:
   - job: report_coverage
@@ -13,6 +14,7 @@ jobs:
       TMPDIR: $(Build.BinariesDirectory)
       PIP_DISABLE_PIP_VERSION_CHECK: '1'
       TOXENV: ${{ parameters.toxenv }}
+      send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
     steps:
       - task: DownloadBuildArtifacts@0
         displayName: download coverage files for run
@@ -70,3 +72,6 @@ jobs:
           codeCoverageTool: 'Cobertura'
           summaryFileLocation: "$(System.DefaultWorkingDirectory)/.tox/coverage.xml"
           failIfCoverageEmpty: true
+
+      - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
+        - template: ../steps/publish-codeclimate.yml

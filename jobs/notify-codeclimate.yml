@@ -1,0 +1,18 @@
+parameters:
+  send_cov_to_codeclimate: false
+
+jobs:
+  - job: notify_codeclimate_build_start
+    pool: { vmImage: 'ubuntu-latest' }
+    variables:
+      send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
+    steps:
+      - script: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
+          chmod +x ./cc-test-reporter
+        displayName: install code climate reporter
+        condition: eq(variables.send_cov_to_codeclimate, true)
+      - script: |
+          ./cc-test-reporter before-build -d
+        displayName: notify code climate of new build
+        condition: eq(variables.send_cov_to_codeclimate, true)

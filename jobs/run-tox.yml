@@ -5,6 +5,7 @@ parameters:
   checkout_submodules: true
   tox_version: ''
   tox_python: '3.8'
+  send_cov_to_codeclimate: false
   pre_test: []
   post_test: []
   tox_envs: []
@@ -12,11 +13,14 @@ parameters:
     with_toxenv: ''
     for_envs: []
 
-
 jobs:
+  - template: notify-codeclimate.yml
+    parameters:
+      send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
   - ${{ each tox_env in parameters.tox_envs }}:
     - job: ${{ coalesce(tox_env.value.display_name, tox_env.key) }}
-      dependsOn: ${{ coalesce(tox_env.value.dependsOn, parameters.dependsOn) }}
+      condition: always()
+      dependsOn: ${{ coalesce('notify_codeclimate_build_start', tox_env.value.dependsOn, parameters.dependsOn) }}
       strategy:
         matrix:
           ${{ if tox_env.value.os }}:
@@ -202,3 +206,4 @@ jobs:
         tox_python: ${{ parameters.tox_python }}
         toxenv: ${{ parameters.coverage.with_toxenv }}
         dependsOn: ${{ parameters.coverage.for_envs }}
+        send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
