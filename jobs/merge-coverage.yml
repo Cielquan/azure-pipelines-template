@@ -78,7 +78,7 @@ jobs:
       - script: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
           chmod +x ./cc-test-reporter && \
-          ./cc-test-reporter -d format-coverage -t cobertura -p $(System.DefaultWorkingDirectory)/.tox/coverage.xml && \
+          ./cc-test-reporter -d format-coverage -t coverage.py -p $(System.DefaultWorkingDirectory)/.tox/coverage.xml && \
           ./cc-test-reporter -d upload-coverage
 #          ./cc-test-reporter -d after-build -t coverage.py
         condition: and(eq(variables['system.pullrequest.isfork'], false), eq(variables.send_cov_to_codeclimate, true))
