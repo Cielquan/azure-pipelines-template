@@ -29,7 +29,5 @@ steps:
           --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
           $(Build.StagingDirectory)/code-climate.*.json | \
     displayName: sum coverage reports for code climate
-  - bash: |
-      ./cc-test-reporter -d upload-coverage -r $CC_TEST_REPORTER_ID --input -
+  - script: ${{ format('./cc-test-reporter -d upload-coverage -r ${0} --input -', variables.CC_TEST_REPORTER_ID) }}
     displayName: publish coverage reports to code climate
-
