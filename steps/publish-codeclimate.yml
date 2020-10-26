@@ -24,6 +24,7 @@ steps:
           finally:
               print(f"Exit code: {code}", log, "\n", sep="\n")'
     displayName: format coverage reports for code climate
+  - script: ./cc-test-reporter upload-coverage --help
   - script: |
       ./cc-test-reporter sum-coverage -d --output - \
           --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
