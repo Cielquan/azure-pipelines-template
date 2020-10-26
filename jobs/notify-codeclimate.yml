@@ -1,9 +1,6 @@
 parameters:
   send_cov_to_codeclimate: false
 
-variables:
-  send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
-
 jobs:
   - job: notify_codeclimate_build_start
     condition: eq(variables.send_cov_to_codeclimate, true)

@@ -13,6 +13,8 @@ parameters:
     with_toxenv: ''
     for_envs: []
 
+variables:
+  send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
 
 jobs:
 #  - job: start
