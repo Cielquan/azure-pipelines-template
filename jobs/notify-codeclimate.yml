@@ -1,0 +1,10 @@
+jobs:
+  - job: notify_codeclimate_build_start
+    pool: { vmImage: 'ubuntu-latest' }
+    steps:
+      - script: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
+          chmod +x ./cc-test-reporter && \
+          ./cc-test-reporter before-build -d
+        displayName: notify code climate of new build
+        condition: eq(variables['system.pullrequest.isfork'], false)
