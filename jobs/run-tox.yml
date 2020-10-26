@@ -15,7 +15,7 @@ parameters:
 
 
 jobs:
-  - {{ if parameters.send_cov_to_codeclimate }}:
+  - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
     - template: notify-codeclimate.yml
   - ${{ each tox_env in parameters.tox_envs }}:
     - job: ${{ coalesce(tox_env.value.display_name, tox_env.key) }}
