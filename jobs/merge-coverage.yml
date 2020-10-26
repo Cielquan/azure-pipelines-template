@@ -70,3 +70,6 @@ jobs:
           codeCoverageTool: 'Cobertura'
           summaryFileLocation: "$(System.DefaultWorkingDirectory)/.tox/coverage.xml"
           failIfCoverageEmpty: true
+
+      - {{ if parameters.send_cov_to_codeclimate }}:
+        - template: publish-codeclimate.yml
