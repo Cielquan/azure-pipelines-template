@@ -42,7 +42,18 @@ left corner of the UI as of 2020-09-02. Below I'm using the endpoint name
 This will make the templates in this repository available in the `cielquan`
 namespace. Note the ref allows you to change the template version you want,
 you can use ``refs/master`` if you want latest unstable version or
-``refs/tags/<TAG>`` to pin the version to an speciffic ``tag``.
+``refs/tags/<TAG>`` to pin the version to an specific ``tag``.
+
+
+Supported python versions
+=========================
+
+Current supported python version:
+- 3.6
+- 3.7
+- 3.8
+- 3.9 (all os) - changed *0.4.0*
+- 3.10 (only linux) - added *0.4.0*
 
 
 job templates
@@ -55,6 +66,8 @@ The job templates can be found in the ``jobs`` directory.
 -------------
 
 *Added in version 0.1.0.*
+
+**Supported python version**
 
 **Logic**
 
@@ -143,7 +156,8 @@ The following parameters can be set at root level:
     - ``py36`` or starts with ``py36-`` - Python 3.6
     - ``py37`` or starts with ``py37-`` - Python 3.7
     - ``py38`` or starts with ``py38-`` - Python 3.8
-    - ``py39`` or starts with ``py39-`` - Python 3.9 latest pre-release
+    - ``py39`` or starts with ``py39-`` - Python 3.9
+    - ``py310`` or starts with ``py310-`` - Python 3.10 latest pre-release
       (only available on linux -- it is installed from
       `deadsnakes <https://github.com/deadsnakes>`_
     - ``pypy3`` or starts with ``pypy3-`` - PyPy 3
@@ -237,9 +251,9 @@ The following parameters can be set at root level:
 **Pipeline variables**
 
 For this job to work credentials for the target repository are needed. They
-are served via Pipline Variables, which you have to set in the pipelines
+are served via Pipeline Variables, which you have to set in the pipelines
 Web-UI settings
-(`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
+(`see here for help <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`__).
 
 If you want to publish to PyPI (*which is the default*) you have to set either:
 
@@ -306,9 +320,9 @@ The following parameters can be set at root level:
 **Pipeline variables**
 
 For this job to work a test reporter id from ``code climate`` is needed
-(`see here for help. <https://docs.codeclimate.com/docs/finding-your-test-coverage-token#section-regenerating-a-repos-test-reporter-id>`_).
-It is served via Pipline Variables, which you have to set in the pipelines Web-UI settings
-(`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
+(`see here for help <https://docs.codeclimate.com/docs/finding-your-test-coverage-token#section-regenerating-a-repos-test-reporter-id>`__).
+It is served via Pipeline Variables, which you have to set in the pipelines Web-UI settings
+(`see here for help <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`__).
 
 Set a variable called ``CC_TEST_REPORTER_ID`` with the id from ``code climate``.
 

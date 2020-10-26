@@ -82,7 +82,9 @@ jobs:
             py: '3.8'
           ${{ if or(eq(tox_env.key, 'py39'), startsWith(tox_env.key, 'py39-')) }}:
             py: '3.9'
-            direct_call_version: '3.9'
+          ${{ if or(eq(tox_env.key, 'py310'), startsWith(tox_env.key, 'py310-')) }}:
+            py: '3.10'
+            direct_call_version: '3.10'
           ${{ if or(eq(tox_env.key, 'pypy3'), startsWith(tox_env.key, 'pypy3-')) }}:
             py: 'pypy3'
           #: Use 'default_python' for toxenvs that don't start with 'py'
@@ -122,16 +124,16 @@ jobs:
         #: install python version for test target
         - task: UsePythonVersion@0
           displayName: 'provision test target python'
-          condition: In(variables.py, '3.6', '3.7', '3.8', 'pypy3')
+          condition: In(variables.py, '3.6', '3.7', '3.8', '3.9', 'pypy3')
           inputs:
             versionSpec: $(py)
             architecture: $(arch)
         - script: |
             sudo add-apt-repository ppa:deadsnakes/nightly
             sudo apt-get update
-            sudo apt-get install -y --no-install-recommends python3.9-dev python3.9-venv python3.9-distutils
-          displayName: 'provision test target python 3.9 (pre-release)'
-          condition: eq(variables.py, '3.9')
+            sudo apt-get install -y --no-install-recommends python3.10-dev python3.10-venv python3.10-distutils
+          displayName: 'provision test target python 3.10 (pre-release)'
+          condition: eq(variables.py, '3.10')
 
         #: run additional user configured 'setup' steps
         - ${{ if parameters.pre_test }}:
@@ -144,7 +146,7 @@ jobs:
             ${{ format('python{0} -c "import os; p=\"\n\".join(os.environ[\"PATH\"].split(os.pathsep)); print(f\"PATH:\n{{p}}\");"', variables.direct_call_version) }}
             ${{ format('python{0} -c "import sys; print(f\"\nPython Version:\n{{sys.version}}\n{{sys.executable}}\");"', variables.direct_call_version) }}
           displayName: show python information
-          condition: In(variables.py, '3.6', '3.7', '3.8', '3.9')
+          condition: In(variables.py, '3.6', '3.7', '3.8', '3.9', '3.10')
         - script: |
             pypy3 -c "import os; p=\"\n\".join(os.environ[\"PATH\"].split(os.pathsep)); print(f\"PATH:\n{p}\");"
             pypy3 -c "import sys; print(f\"\nPython Version:\n{sys.version}\n{sys.executable}\");"
