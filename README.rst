@@ -165,7 +165,7 @@ The following parameters can be set at root level:
     ``tox_env`` must generate ``.tox/.coverage`` and ``.tox/coverage.xml`` files
 
 - ``send_cov_to_codeclimate``: Boolean if covearge data should be send to code climate.
-  Needs ``CC_TEST_REPORTER_ID`` variable to work: see `notify-codeclimate.yml`_
+  Needs ``CC_TEST_REPORTER_ID`` variable to work: see :ref:`notify-codeclimate.yml`
   (default: false) *Added in version 0.3.0.*
 
 **Example**
