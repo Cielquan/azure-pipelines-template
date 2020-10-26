@@ -20,7 +20,7 @@ jobs:
   - ${{ each tox_env in parameters.tox_envs }}:
     - job: ${{ coalesce(tox_env.value.display_name, tox_env.key) }}
       condition: succeeded()
-      dependsOn: ${{ coalesce(tox_env.value.dependsOn, parameters.dependsOn) }}
+      dependsOn: ${{ coalesce("notify_codeclimate_build_start", tox_env.value.dependsOn, parameters.dependsOn) }}
       strategy:
         matrix:
           ${{ if tox_env.value.os }}:
