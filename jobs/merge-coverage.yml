@@ -99,9 +99,9 @@ jobs:
                     print(code, log, "\n", sep="\n")'
           displayName: format coverage reports for code climate
         - script: |
-          ./cc-test-reporter sum-coverage -d --output - \
-              --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
-              $(Build.StagingDirectory)/code-climate.*.json | \
+            ./cc-test-reporter sum-coverage -d --output - \
+                --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
+                $(Build.StagingDirectory)/code-climate.*.json | \
           displayName: sum coverage reports for code climate
         - script: ./cc-test-reporter -d upload-coverage --input -
           displayName: publish coverage reports to code climate
