@@ -74,7 +74,7 @@ Features and functionality:
   and upload those as a build artifact (also enqueue a job after all these job succeed to merge the generated
   coverage reports)
 - if coverage was requested queue a job that post all toxenv runs will merge all the coverages via a tox target
-- if set also sends coverage data to code climate
+- if set also sends coverage data to ``code climate``
 
 
 **Steps**
@@ -164,7 +164,8 @@ The following parameters can be set at root level:
   - ``for_envs``: List of ``tox_env`` to collect coverage data from. Referred
     ``tox_env`` must generate ``.tox/.coverage`` and ``.tox/coverage.xml`` files
 
-- ``send_cov_to_codeclimate``: Boolean if covearge data should be send to code climate.
+- ``send_cov_to_codeclimate``: Boolean if covearge data should be send to
+  ``code climate``.
   Needs ``CC_TEST_REPORTER_ID`` variable to work: see :ref:`notify-codeclimate.yml`
   (default: false) *Added in version 0.3.0.*
 
@@ -290,15 +291,15 @@ This example builds and publishes the package to PyPI.org after the jobs
 
 **Logic**
 
-This job template will install the code climate reporter tool and notify code climate
-about a new build.
+This job template will install the ``code climate`` reporter tool and notify
+``code climate`` about a new build.
 
 
 **Parameters**
 
 The following parameters can be set at root level:
 
-- ``send_cov_to_codeclimate``: Boolean if code climate should be notified.
+- ``send_cov_to_codeclimate``: Boolean if ``code climate`` should be notified.
   (default: false)
 
 
