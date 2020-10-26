@@ -22,7 +22,7 @@ steps:
           except subprocess.CalledProcessError as exception:
               log, code = exception.output, exception.returncode
           finally:
-              print(code, log, "\n", sep="\n")'
+              print(f"Exit code: {code}", log, "\n", sep="\n")'
     displayName: format coverage reports for code climate
   - script: |
       ./cc-test-reporter sum-coverage -d --output - \
