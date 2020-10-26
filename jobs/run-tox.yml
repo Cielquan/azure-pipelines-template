@@ -16,7 +16,9 @@ parameters:
 
 jobs:
   - job: start
-    - script: echo start
+    - pool: { vmImage: 'ubuntu-latest' }
+    - steps:
+      - script: echo start
   - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
     - template: notify-codeclimate.yml
   - ${{ each tox_env in parameters.tox_envs }}:
