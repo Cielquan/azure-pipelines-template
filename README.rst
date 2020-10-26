@@ -180,7 +180,7 @@ The following parameters can be set at root level:
 
 - ``send_cov_to_codeclimate``: Boolean if covearge data should be send to
   ``code climate``.
-  Needs ``CC_TEST_REPORTER_ID`` variable to work: see :ref:`notify-codeclimate.yml`
+  Needs ``CC_TEST_REPORTER_ID`` variable to work: see `notify-codeclimate.yml`_
   (default: false) *Added in version 0.3.0.*
 
 **Example**
