@@ -25,7 +25,7 @@ steps:
       ./cc-test-reporter sum-coverage -d --output - \
           --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
           $(Build.StagingDirectory)/code-climate.*.json | \
-      ./cc-test-reporter -d -r d24f105984ab5e087773a21b8668acb0b36cb8311fc2637f78a2d9451e531e08 \
+      ./cc-test-reporter -d -r 4cdceb4fb4bd47851f327963b9b225f8cbafad7a8cc25f1373c6da8b2ef371c2 \
           upload-coverage --input -
     displayName: publish code climate
     condition: succeededOrFailed()
