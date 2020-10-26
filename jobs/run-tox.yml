@@ -15,6 +15,8 @@ parameters:
 
 
 jobs:
+  - job: start
+    - echo start
   - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
     - template: notify-codeclimate.yml
   - ${{ each tox_env in parameters.tox_envs }}:
