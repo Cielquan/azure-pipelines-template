@@ -74,6 +74,7 @@ Features and functionality:
   and upload those as a build artifact (also enqueue a job after all these job succeed to merge the generated
   coverage reports)
 - if coverage was requested queue a job that post all toxenv runs will merge all the coverages via a tox target
+- if set also sends coverage data to code climate
 
 
 **Steps**
@@ -163,10 +164,13 @@ The following parameters can be set at root level:
   - ``for_envs``: List of ``tox_env`` to collect coverage data from. Referred
     ``tox_env`` must generate ``.tox/.coverage`` and ``.tox/coverage.xml`` files
 
+- ``send_cov_to_codeclimate``: Boolean if covearge data should be send to code climate.
+  Needs ``CC_TEST_REPORTER_ID`` variable to work: see `notify-codeclimateyml`_
+  (default: false) *Added in version 0.3.0.*
 
 **Example**
 
-The following example will run the follwing jobs with ``tox`` version *3.15.0*
+The following example will run the following jobs with ``tox`` version *3.15.0*
 called via *python 3.7*:
 
 - ``pre_commit`` on *linux* with *python 3.7*
@@ -277,6 +281,35 @@ This example builds and publishes the package to PyPI.org after the jobs
       - template: jobs/publish-pypi-poetry.yml@cielquan
         parameters:
           dependsOn: [report_coverage, pre_commit, docs]
+
+
+`notify-codeclimate.yml`
+------------------------
+
+*Added in version 0.3.0.*
+
+**Logic**
+
+This job template will install the code climate reporter tool and notify code climate
+about a new build.
+
+
+**Parameters**
+
+The following parameters can be set at root level:
+
+- ``send_cov_to_codeclimate``: Boolean if code climate should be notified.
+  (default: false)
+
+
+**Pipeline variables**
+
+For this job to work a test reporter id from ``code climate`` is needed
+(`see here for help. <https://docs.codeclimate.com/docs/finding-your-test-coverage-token#section-regenerating-a-repos-test-reporter-id>`_).
+It is served via Pipline Variables, which you have to set in the pipelines Web-UI settings
+(`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
+
+Set a variable called ``CC_TEST_REPORTER_ID`` with the id from ``code climate``.
 
 
 Mentions
