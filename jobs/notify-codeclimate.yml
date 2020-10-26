@@ -3,7 +3,6 @@ parameters:
 
 jobs:
   - job: notify_codeclimate_build_start
-    condition: eq(variables.send_cov_to_codeclimate, true)
     pool: { vmImage: 'ubuntu-latest' }
     variables:
       send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
