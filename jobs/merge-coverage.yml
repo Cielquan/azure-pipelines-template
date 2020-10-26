@@ -3,6 +3,7 @@ parameters:
   toxenv: 'coverage'
   tox_version: ''
   tox_python: '3.8'
+  send_cov_to_codeclimate: false
 
 jobs:
   - job: report_coverage
