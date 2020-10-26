@@ -14,10 +14,6 @@ parameters:
     for_envs: []
 
 jobs:
-#  - job: start
-#    pool: { vmImage: 'ubuntu-latest' }
-#    steps:
-#      - script: echo start
   - template: notify-codeclimate.yml
     parameters:
       send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}

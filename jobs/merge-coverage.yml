@@ -74,35 +74,4 @@ jobs:
           failIfCoverageEmpty: true
 
       - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
-        - script: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
-            chmod +x ./cc-test-reporter
-          displayName: install code climate reporter
-        - script: |
-            python -c '
-            from pathlib import Path
-            import subprocess
-            from_folder = Path("$(Build.StagingDirectory)")
-            for counter, coverage_file in enumerate(from_folder.glob("*/coverage.xml")):
-                key = coverage_file.parent.name[9:]
-                print(f"{counter}) {coverage_file}")
-                try:
-                    cmd = ["$(System.DefaultWorkingDirectory)/cc-test-reporter", "format-coverage",
-                           str(coverage_file),
-                           "-d", "-t", "coverage.py",
-                           "-o", f"$(Build.StagingDirectory)/code-climate.{key}.json"]
-                    print(f"\t{cmd}")
-                    log = subprocess.check_output(cmd, stderr=subprocess.STDOUT, universal_newlines=True)
-                    code = 0
-                except subprocess.CalledProcessError as exception:
-                    log, code = exception.output, exception.returncode
-                finally:
-                    print(code, log, "\n", sep="\n")'
-          displayName: format coverage reports for code climate
-        - script: |
-            ./cc-test-reporter sum-coverage -d --output - \
-                --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
-                $(Build.StagingDirectory)/code-climate.*.json | \
-          displayName: sum coverage reports for code climate
-        - script: ./cc-test-reporter -d upload-coverage --input -
-          displayName: publish coverage reports to code climate
+        - template: ../steps/publish-codeclimate.yml
