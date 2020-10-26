@@ -42,7 +42,7 @@ left corner of the UI as of 2020-09-02. Below I'm using the endpoint name
 This will make the templates in this repository available in the `cielquan`
 namespace. Note the ref allows you to change the template version you want,
 you can use ``refs/master`` if you want latest unstable version or
-``refs/tags/<TAG>`` to pin the version to an speciffic ``tag``.
+``refs/tags/<TAG>`` to pin the version to an specific ``tag``.
 
 
 job templates
@@ -237,7 +237,7 @@ The following parameters can be set at root level:
 **Pipeline variables**
 
 For this job to work credentials for the target repository are needed. They
-are served via Pipline Variables, which you have to set in the pipelines
+are served via Pipeline Variables, which you have to set in the pipelines
 Web-UI settings
 (`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
 
@@ -307,7 +307,7 @@ The following parameters can be set at root level:
 
 For this job to work a test reporter id from ``code climate`` is needed
 (`see here for help. <https://docs.codeclimate.com/docs/finding-your-test-coverage-token#section-regenerating-a-repos-test-reporter-id>`_).
-It is served via Pipline Variables, which you have to set in the pipelines Web-UI settings
+It is served via Pipeline Variables, which you have to set in the pipelines Web-UI settings
 (`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
 
 Set a variable called ``CC_TEST_REPORTER_ID`` with the id from ``code climate``.
