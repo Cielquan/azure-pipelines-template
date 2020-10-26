@@ -71,5 +71,5 @@ jobs:
           summaryFileLocation: "$(System.DefaultWorkingDirectory)/.tox/coverage.xml"
           failIfCoverageEmpty: true
 
-      - {{ if parameters.send_cov_to_codeclimate }}:
+      - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
         - template: ../steps/publish-codeclimate.yml
