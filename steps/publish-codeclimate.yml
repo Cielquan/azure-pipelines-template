@@ -29,7 +29,7 @@ steps:
           --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
           $(Build.StagingDirectory)/code-climate.*.json | \
     displayName: sum coverage reports for code climate
-  -script: echo ${{ format('${0}', variables.CC_TEST_REPORTER_ID) }} \
+  - script: echo ${{ format('${0}', variables.CC_TEST_REPORTER_ID) }} \
   - script: |
       ./cc-test-reporter -d \
           ${{ format('-r ${0}', variables.CC_TEST_REPORTER_ID) }} \
