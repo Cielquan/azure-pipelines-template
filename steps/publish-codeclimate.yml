@@ -30,5 +30,4 @@ steps:
           --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
           $(Build.StagingDirectory)/code-climate.*.json | \
       ./cc-test-reporter upload-coverage -d --input -
-#          ${{ format('-r ${0}', variables.CC_TEST_REPORTER_ID) }} \
     displayName: sum and publish coverage reports for code climate
