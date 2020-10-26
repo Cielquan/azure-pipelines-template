@@ -253,7 +253,7 @@ The following parameters can be set at root level:
 For this job to work credentials for the target repository are needed. They
 are served via Pipeline Variables, which you have to set in the pipelines
 Web-UI settings
-(`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
+(`see here for help <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`__).
 
 If you want to publish to PyPI (*which is the default*) you have to set either:
 
@@ -320,9 +320,9 @@ The following parameters can be set at root level:
 **Pipeline variables**
 
 For this job to work a test reporter id from ``code climate`` is needed
-(`see here for help. <https://docs.codeclimate.com/docs/finding-your-test-coverage-token#section-regenerating-a-repos-test-reporter-id>`_).
+(`see here for help <https://docs.codeclimate.com/docs/finding-your-test-coverage-token#section-regenerating-a-repos-test-reporter-id>`__).
 It is served via Pipeline Variables, which you have to set in the pipelines Web-UI settings
-(`see here for help. <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`_).
+(`see here for help <https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=classic%2Cbatch#set-variables-in-pipeline>`__).
 
 Set a variable called ``CC_TEST_REPORTER_ID`` with the id from ``code climate``.
 
