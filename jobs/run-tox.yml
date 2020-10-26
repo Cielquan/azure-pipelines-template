@@ -23,7 +23,6 @@ jobs:
       send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
   - ${{ each tox_env in parameters.tox_envs }}:
     - job: ${{ coalesce(tox_env.value.display_name, tox_env.key) }}
-      condition: succeededOrFailed()
       dependsOn: ${{ coalesce('notify_codeclimate_build_start', tox_env.value.dependsOn, parameters.dependsOn) }}
       strategy:
         matrix:
