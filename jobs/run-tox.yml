@@ -19,7 +19,7 @@ jobs:
     - template: notify-codeclimate.yml
   - ${{ each tox_env in parameters.tox_envs }}:
     - job: ${{ coalesce(tox_env.value.display_name, tox_env.key) }}
-      condition: succeed()
+      condition: succeeded()
       dependsOn: ${{ coalesce(tox_env.value.dependsOn, parameters.dependsOn) }}
       strategy:
         matrix:
