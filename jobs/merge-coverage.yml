@@ -72,14 +72,13 @@ jobs:
           summaryFileLocation: "$(System.DefaultWorkingDirectory)/.tox/coverage.xml"
           failIfCoverageEmpty: true
 
-#      - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
-#        - template: ../steps/publish-codeclimate.yml
-
-      - script: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
-          chmod +x ./cc-test-reporter && \
+      - ${{ if eq(parameters.send_cov_to_codeclimate, true) }}:
+        - script: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
+            chmod +x ./cc-test-reporter
+          displayName: install code climate reporter
+        - script: |
           python -c '
-          from xml.etree import ElementTree as et
           from pathlib import Path
           import subprocess
           from_folder = Path("$(Build.StagingDirectory)")
@@ -97,11 +96,12 @@ jobs:
               except subprocess.CalledProcessError as exception:
                   log, code = exception.output, exception.returncode
               finally:
-                  print(code, log, "\n", sep="\n")' && \
+                  print(code, log, "\n", sep="\n")'
+          displayName: format coverage reports for code climate
+        - script: |
           ./cc-test-reporter sum-coverage -d --output - \
               --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
               $(Build.StagingDirectory)/code-climate.*.json | \
-          ./cc-test-reporter -d -r 4cdceb4fb4bd47851f327963b9b225f8cbafad7a8cc25f1373c6da8b2ef371c2 \
-              upload-coverage --input -
-        displayName: publish code climate
-        condition: and(eq(variables['system.pullrequest.isfork'], false), eq(variables.send_cov_to_codeclimate, true))
+          displayName: sum coverage reports for code climate
+        - script: ./cc-test-reporter -d upload-coverage --input -
+          displayName: publish coverage reports to code climate
