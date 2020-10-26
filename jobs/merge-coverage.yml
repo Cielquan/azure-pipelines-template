@@ -97,7 +97,7 @@ jobs:
               except subprocess.CalledProcessError as exception:
                   log, code = exception.output, exception.returncode
               finally:
-                  print(code, log, '\n', sep='\n')' && \
+                  print(code, log, "\n", sep="\n")' && \
           ./cc-test-reporter sum-coverage -d --output - \
               --parts $(ls -1 $(Build.StagingDirectory)/code-climate.*.json | wc -l) \
               $(Build.StagingDirectory)/code-climate.*.json | \
