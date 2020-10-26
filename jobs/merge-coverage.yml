@@ -72,4 +72,4 @@ jobs:
           failIfCoverageEmpty: true
 
       - {{ if parameters.send_cov_to_codeclimate }}:
-        - template: publish-codeclimate.yml
+        - template: ../steps/publish-codeclimate.yml
