@@ -1,3 +1,6 @@
+parameters:
+  send_cov_to_codeclimate: false
+
 jobs:
   - job: notify_codeclimate_build_start
     pool: { vmImage: 'ubuntu-latest' }
@@ -7,4 +10,4 @@ jobs:
           chmod +x ./cc-test-reporter && \
           ./cc-test-reporter before-build -d
         displayName: notify code climate of new build
-        condition: eq(variables['system.pullrequest.isfork'], false)
+        condition: and(eq(variables['system.pullrequest.isfork'], false), eq(parameters.send_cov_to_codeclimate, true))

@@ -20,6 +20,8 @@ jobs:
     steps:
       - script: echo start
   - template: notify-codeclimate.yml
+    parameters:
+      send_cov_to_codeclimate: ${{ parameters.send_cov_to_codeclimate }}
   - ${{ each tox_env in parameters.tox_envs }}:
     - job: ${{ coalesce(tox_env.value.display_name, tox_env.key) }}
       condition: succeeded()
