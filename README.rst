@@ -16,6 +16,8 @@ azure-pipeline-template
 |               | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                |
 +---------------+----------------------------------------------------------------------+
 
+**No longer maintained, because I migrated to Github Actions.**
+
 
 **First configure a github service connection**
 
